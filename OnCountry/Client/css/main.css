@@ -27,7 +27,7 @@ a:hover {
 html,
 body {
   height: 100%;
-  background: #333 url("mainbackground.jpg") no-repeat center center fixed; 
+  background: #333 url("mainbackground.jpg") no-repeat top center; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -59,11 +59,17 @@ body {
   margin-left: auto;
 }
 
+/* Centerd div for the map */
+
+#center {
+   margin-left: 15%;
+   margin-right: 15%
+ }
+
 /* Padding for spacing */
 .inner {
   padding: 30px;
 }
-
 
 /*
  * Header

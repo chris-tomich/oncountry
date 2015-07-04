@@ -23,8 +23,8 @@
 
     <style>
       #map {
-          width: 500px;
-          height: 500px;
+          width: 1000px;
+          height: 600px;
           padding: 0;
           margin: 0;
       }
@@ -69,7 +69,9 @@
           </div>
 &nbsp;
 
-      <div id="map"></div>
+<div id="center">
+<div id="map"></div>
+</div>
 
 &nbsp;
 
@@ -96,7 +98,7 @@
              center_lat: 0,
              center_lon: 0,
              zoom: 2
-             })
+             }) 
              .done(function(vis, layers) {
              // layer 0 is the base layer, layer 1 is cartodb layer
              // setInteraction is disabled by default
