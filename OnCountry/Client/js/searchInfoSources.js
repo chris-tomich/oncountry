@@ -27,7 +27,7 @@ function troveRequest(data) {
         var searchParam = "/api/troveRequest/" + organisationConversion + "/" + zone[zoneCounter];
 
         setTimeout(function() {
-            jQuery.ajax(searchParam).done(troveRequest);
+            jQuery.ajax(searchParam).done(troveRequest).fail(troveRequest);
         }, 1000);
     }
 }
