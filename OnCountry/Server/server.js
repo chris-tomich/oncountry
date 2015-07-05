@@ -12,12 +12,12 @@ var port = process.env.PORT || 4000;
 
 getJSON = function(options, onResult)
 {
-    console.log("rest::getJSON");
+    //console.log("rest::getJSON");
 
     var req = http.request(options, function(res)
     {
         var output = '';
-        console.log(options.host + ':' + res.statusCode);
+        //console.log(options.host + ':' + res.statusCode);
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {

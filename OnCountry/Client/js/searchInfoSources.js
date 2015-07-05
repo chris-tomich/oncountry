@@ -11,7 +11,7 @@ function isNotNull(obj) {
 }
 
 function troveRequest(data) {
-    console.log(data);
+    //console.log(data);
 
     if (isNotNull(data) && isNotNull(data.response) && isNotNull(data.response.zone) && isNotNull(data.response.zone[0].records)) {
         for (var workIndex = 0; workIndex < data.response.zone[0].records.work.length; workIndex++) {
@@ -57,7 +57,7 @@ function loadMap(lat, lon) {
             map.panTo([lat, lon]);
         })
         .error(function(err) {
-            console.log(err);
+            //console.log(err);
         });
 }
 
@@ -79,7 +79,7 @@ function GetLocation(location) {
         })
         .error(function(errors) {
             // errors contains a list of errors
-            console.log("errors:" + errors);
+            //console.log("errors:" + errors);
         });
 
     sql.execute("SELECT title, description, url FROM wamuseumdata ORDER BY the_geom <-> ST_SetSRID(ST_MakePoint({{ lon }},{{ lat }}), 4326) ASC LIMIT 5", { "lat": lat, "lon": lon })
@@ -90,7 +90,7 @@ function GetLocation(location) {
         })
         .error(function(errors) {
             // errors contains a list of errors
-            console.log("errors:" + errors);
+            //console.log("errors:" + errors);
         });
 
     sql.execute("SELECT url, primary_image, primary_image_caption FROM abc_local_photo_stories_2009_2014 ORDER BY the_geom <-> ST_SetSRID(ST_MakePoint({{ lon }},{{ lat }}), 4326) ASC LIMIT 5", { "lat": lat, "lon": lon })
@@ -101,7 +101,7 @@ function GetLocation(location) {
         })
         .error(function(errors) {
             // errors contains a list of errors
-            console.log("errors:" + errors);
+            //console.log("errors:" + errors);
         });
 }
 
