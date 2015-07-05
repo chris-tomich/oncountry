@@ -64,13 +64,35 @@ body {
 
 #center {
    margin-left: 15%;
-   margin-right: 15%
+   margin-right: 15%;
  }
 
 /* Padding for spacing */
 .inner {
   padding: 30px;
 }
+
+/*
+ * White on colour look
+ */
+
+.white-on-colour {
+  color:#fff; 
+  background: url("minibackground.jpg") top center fixed;
+}
+
+.white-on-colour.h3 {
+  color:#fff;
+}
+
+/*
+ * Ensure white background
+ */
+
+ .white-background {
+  background-color: #fff;
+}
+
 
 /*
  * Header
