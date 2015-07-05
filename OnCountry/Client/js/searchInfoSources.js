@@ -13,7 +13,7 @@ function isNotNull(obj) {
 function troveRequest(data) {
     //console.log(data);
 
-    if (isNotNull(data) && isNotNull(data.response) && isNotNull(data.response.zone) && isNotNull(data.response.zone[0].records)) {
+    if (isNotNull(data) && isNotNull(data.response) && isNotNull(data.response.zone) && isNotNull(data.response.zone[0].records) && isNotNull(data.response.zone[0].records.work)) {
         for (var workIndex = 0; workIndex < data.response.zone[0].records.work.length; workIndex++) {
             var record = data.response.zone[0].records.work[workIndex];
 
@@ -27,7 +27,14 @@ function troveRequest(data) {
         var searchParam = "/api/troveRequest/" + organisationConversion + "/" + zone[zoneCounter];
 
         setTimeout(function() {
-            jQuery.ajax(searchParam).done(troveRequest).fail(troveRequest);
+            jQuery.ajax(searchParam).done(troveRequest).fail(function() {
+                zoneCounter = zoneCounter - 1;
+
+                searchParam = "/api/troveRequest/" + organisationConversion + "/" + zone[zoneCounter];
+                jQuery.ajax(searchParam).done(function() {
+                    troveRequest();
+                });
+            });
         }, 1000);
     }
 }
