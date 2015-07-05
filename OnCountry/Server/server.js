@@ -62,5 +62,5 @@ router.get("/troveRequest/:searchterms/:zone", function(req,res) {
 });
 
 app.use("/api", router);
-app.use("/", serveStatic(__dirname));
+app.use("/", serveStatic("/usr/local/oncountry/OnCountry/Client"));
 app.listen(port);
