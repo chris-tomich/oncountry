@@ -1,35 +1,66 @@
+var http = require("http");
 var express = require("express");
 var bodyParser = require("body-parser");
 var serveStatic = require("serve-static");
 
 var app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 4000;
 
+getJSON = function(options, onResult)
+{
+    console.log("rest::getJSON");
+
+    var req = http.request(options, function(res)
+    {
+        var output = '';
+        console.log(options.host + ':' + res.statusCode);
+        res.setEncoding('utf8');
+
+        res.on('data', function (chunk) {
+            output += chunk;
+        });
+
+        res.on('end', function() {
+            var obj = JSON.parse(output);
+            onResult(res.statusCode, obj);
+        });
+    });
+
+    req.on('error', function(err) {
+        //res.send('error: ' + err.message);
+    });
+
+    req.end();
+};
+
 var router = express.Router();
 
-router.get("/api/:username/:projectname/:mapname", function(req,res) {
-    var username = req.params.username.replace(/-/g, " ");
-    var projectname = req.params.projectname.replace(/-/g, " ");
-    var mapname = req.params.mapname.replace(/-/g, " ");
+router.get("/troveRequest/:searchterms/:zone", function(req,res) {
+    var searchterms = req.params.searchterms.replace(/-/g, " ");
+    var zone = req.params.zone.replace(/-/g, " ");
 
-    Map.findOne({ "projectname": projectname, "user": username }, function(err, maps) {
-        for (var mapIndex in maps.maps) {
-            var map = maps.maps[mapIndex];
+    var host = "api.trove.nla.gov.au";
+    var path = "/result?q=" + searchterms + "&zone=" + zone + "&encoding=json&n=5&key=5cqtvvgelo5j1smq";
 
-            if (map.mapname == mapname) {
-                return res.json(map);
-            }
+    var options = {
+        host: host,
+        port: 80,
+        path: path,
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
         }
+    };
+
+    getJSON(options, function(statusCode, result) {
+        return res.json(result);
     });
 });
 
-router.get("/:username/:mapname", function(req, res) {
-    res.sendFile(mainFile);
-});
-
-app.use("/", router);
-app.use("/public_files", serveStatic(publicFilesRoot));
+app.use("/api", router);
+app.use("/", serveStatic(__dirname));
 app.listen(port);
